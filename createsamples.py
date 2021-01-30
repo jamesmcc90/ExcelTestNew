@@ -5,11 +5,11 @@ client = MongoClient(
     "mongodb+srv://james:McConnell%401990@sandbox.1iqe7.mongodb.net/test?authSource=admin&replicaSet=atlas-u2rtn2-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true")
 db = client.james
 
-names = ['Kitchen', 'Animal', 'State', 'Tastey', 'Big', 'City', 'Fish', 'Pizza', 'Goat', 'Salty', 'Sandwich', 'Lazy',
+names = ['Kitchen', 'Animal', 'State', 'Taste', 'Big', 'City', 'Fish', 'Pizza', 'Goat', 'Salty', 'Sandwich', 'Lazy',
          'Fun']
 company_type = ['LLC', 'Inc', 'Company', 'Corporation']
 company_cuisine = ['Pizza', 'Bar Food', 'Fast Food', 'Italian', 'Mexican', 'American', 'Sushi Bar', 'Vegetarian']
-for x in range(1, 501):
+for x in range(1, 11):
     business = {
         'name': names[randint(0, (len(names) - 1))] + ' ' + names[randint(0, (len(names) - 1))] + ' ' + company_type[
             randint(0, (len(company_type) - 1))],
@@ -19,11 +19,11 @@ for x in range(1, 501):
     # insert one document into MongoDB
     result = db.reviews.insert_one(business)
 
-    print('Created {0} of 500 as {1}'.format(x, result.inserted_id))
+    print('Created {0} of 10 as {1}'.format(x, result.inserted_id))
 # Step 5: Tell us that you are done
-print('finished creating 500 business reviews')
+print('finished creating 10 business reviews')
 
-fivestarcount = db.reviews.find({'rating': 5}).count()
+fivestarcount = db.reviews.count_documents({'rating': 3})
 print(fivestarcount)
 
 from pymongo import MongoClient
@@ -32,13 +32,13 @@ from pymongo import MongoClient
 client = MongoClient(
     "mongodb+srv://james:McConnell%401990@sandbox.1iqe7.mongodb.net/test?authSource=admin&replicaSet=atlas-u2rtn2-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true")
 # Set the db object to point to the business database
-db = client.business
+db = client.james
 # Showcasing the count() method of find, count the total number of 5 ratings
-print('The number of 5 star reviews:')
-fivestarcount = db.reviews.find({'rating': 5}).count()
+print('The number of 3 star reviews:')
+fivestarcount = db.reviews.count_documents({"rating": 3})
 print(fivestarcount)
 # Now let's use the aggregation framework to sum the occurrence of each rating across the entire data set
-print('\nThe sum of each rating occurance across all data grouped by rating ')
+print('\nThe sum of each rating occurrence across all data grouped by rating ')
 stargroup = db.reviews.aggregate(
     # The Aggregation Pipeline is defined as an array of different operations
     [
@@ -66,7 +66,7 @@ client = MongoClient(
     "mongodb+srv://james:McConnell%401990@sandbox.1iqe7.mongodb.net/test?authSource=admin&replicaSet=atlas-u2rtn2-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true")
 db = client.business
 
-ASingleReview = db.reviews.find_one({})
+ASingleReview = db.restaurants.find_one({})
 print('A sample document:')
 pprint(ASingleReview)
 
