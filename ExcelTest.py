@@ -17,7 +17,7 @@ script = 'SELECT * FROM CARS'
 c.execute(script)
 balance_report = pd.read_sql(script, conn).to_csv('BalanceDetails_' + time.strftime("%Y%m%d") + ".csv")
 
-filename = "C:\\Users\\James\\Desktop\\ExcelTestNew\\BalanceDetails_20210130.csv"
+filename = "C:\\Users\\James\\Desktop\\BalanceDetails_20210127.csv"
 now = datetime.now()
 
 def mail():
@@ -54,7 +54,7 @@ def mail():
         server.sendmail(sender_email, receiver_email, text)
 
 
-schedule.every().day.at("16:44").do(mail)
+schedule.every().day.at("22:05").do(mail)
 print("Report sent")
 
 while True:
